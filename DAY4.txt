@@ -1,0 +1,491 @@
+DAY 4
+Task
+
+ANSWER HERE  
+Task 1.  
+~~~
+@R1
+conf t
+ interface e/01
+  ip add 172.16.160.1 255.255.248.0
+  no shut
+  end
+
+@R3
+conf t
+ interface e0/1
+  ip add 172.16.167.254 255.255.248.0
+  no shut
+  end
+~~~
+
+
+172.16.160.0./21
+
+3rd 8i
+
+172.16.8.0/21 255.255.248.0
+172.16.160.1
+172.16.167.254
+172.16.167.255
+172.16.168.0
+
+
+Network Address
+Broadcast Address
+
+--------------------------------------------
+
+@R1
+conf t
+ interface e0/0
+  ip ospf priority 0
+ interface e0/1
+  ip ospf  priority 0
+ router ospf 5
+  router-id 172.16.97.111
+  network ___.___.___.___  ___.___.___.___ area 2
+  network ___.___.___.___  ___.___.___.___ area 2
+  network ___.___.___.___  ___.___.___.___ area 2
+  end
+
+@R2
+conf t
+ interface e0/0
+  ip ospf ___ ___
+  exit
+ router ospf ___
+  router-id ___ 
+  network ___.___.___.___  ___.___.___.___ area ___
+  network ___.___.___.___  ___.___.___.___ area ___
+  network ___.___.___.___  ___.___.___.___ area ___
+  end
+  
+@R3
+conf t
+ interface ___
+  ip ospf ___ ___
+  exit
+ router ospf 5
+  router-id ___ 
+  network ___.___.___.___  ___.___.___.___ area ___
+  network ___.___.___.___  ___.___.___.___ area ___
+  network ___.___.___.___  ___.___.___.___ area ___
+  end
+~~~ 
+
+10.0.15.82/27
+4th 32i
+32-37
+255.255.255.248
+
+
+
+________________________________________________
+
+ANSIBLE
+
+sh mac address-table
+
+
+Camera 6 MAC Address (fa0/6):   001a.0706.c2c5
+Camera 8 MAC Address (fa0/8):   001a.0709.c644
+Ephone 1 MAC Address (fa0/5):   ccd8.c1fb.0f11
+Ephone 2 MAC Address (fa0/7):   8478.aced.5847
+
+__NetOps-PH Setup__
+> Login: root
+> Pass: C1sc0123
+
+checking IP Address 
+ip -4 addr
+
+
+  | NetAdapter   |                    |
+  | ---          | ---                |
+  | NetAdapter   | VMNet1             |192.168.101.209
+  | NetAdapter 2 | VMNet2             |
+  | NetAdapter 3 | VMNet3             |
+  | NetAdapter 4 | Bridge (Replicate) |
+
+
+!@UTM-PH
+
+conf t
+	int g3
+	ip add 10.11.11.113 255.255.255.224
+	no shut 
+	end
+
+Ping to ANSIBLE 
+	ping 10.11.11.113
+
+check netstat -rn 
+
+ip route add 0.0.0.0/0 via 10.11.11.113 dev ens224
+
+________________________________________________
+
+
+how to resolve DNS Error 
+ping github.com
+nano /etc/resolv.conf
+ 
+ 
+ @NETOPS
+ cat /root/.ssh/known_hosts
+
+
+________________________________________________
+
+RESTCONF: Data written in JSON/XML - 443 HTTPS
+NETCONF: Data written in XML - SSH 833
+
+
+
+### EDIT-CONFIG : Create Loopbacks
+
+<rpc message-id="1" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <edit-config>
+    <target>
+      <running/>
+    </target>
+    <config>
+      <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+        <interface>
+          <Loopback>
+            <name>1</name>
+            <description>Configured via raw NETCONF SSH</description>
+            <ip>
+              <address>
+                <primary>
+                  <address>1.1.1.1</address>
+                  <mask>255.255.255.255</mask>
+                </primary>
+              </address>
+            </ip>
+          </Loopback>
+		  
+		  <Loopback>
+            <name>2</name>
+            <description>Configured via raw NETCONF SSH</description>
+            <ip>
+              <address>
+                <primary>
+                  <address>2.2.2.2</address>
+                  <mask>255.255.255.255</mask>
+                </primary>
+              </address>
+            </ip>
+          </Loopback>
+		  
+        </interface>
+      </native>
+    </config>
+  </edit-config>
+</rpc>
+]]>]]> 
+
+
+________________________________________________
+
+IP Address for blocking
+
+redtube: 66.254.114.238
+youporn: 66.258.114.79
+faketaxi: 66.258.114.234
+bangbros: 66.254.114.234
+bangbus: 172.67.133.243
+pinayflix: 104.21.55.88
+iyyotube: 208.77.20.35
+
+
+!@UTM-PH
+config t
+ no ip access-list standard FWP1
+ ip access-list standard FWP1
+  deny 66.254.114.0 0.0.0.255
+  deny 172.67.133.0 0.0.0.255
+  deny 104.21.55.0 0.0.0.255
+  deny  208.77.20.0 0.0.0.255
+  permit any
+  
+ int gi 1
+  ip access-group FWP1 in
+  end
+show ip access-list int g1
+
+remove 
+
+ int gi 1
+  no ip access-group FWP1 in
+  end
+show ip access-list int g1
+
+SCHOOLS
+ping www.dlsu.edu.ph 104.20.42.168
+ping www.ccp.edu.ph 50.6.160.47     
+ping www.feu.edu.ph 184.168.125.216
+ping  www.ue.edu.ph 155.137.92.102
+ping  www.plmun.edu.ph = _________
+
+
+
+config t
+ no ip access-list standard FWP2
+ ip access-list standard FWP2
+  deny 104.20.42.0 0.0.0.255
+  deny 50.6.160.0 0.0.0.255
+  deny 184.168.125.0 0.0.0.255
+  deny 155.137.92.0 0.0.0.255
+  permit any
+ int gi 1
+  no ip access-group FWP2 in
+  end
+show ip access-list int g1
+
+________________________________________________
+
+Torrent Sites
+
+www.thepiratebay.org - 162.159.137.6
+www.limetorrents.com - 172.67.203.31
+www.freeanimeonline.com - 13.248.169.48
+www.torlock2.com - 172.67.173.197
+www.hentaisites.com - 104.21.30.199
+www.iptorrents.com - 
+
+config t
+ no ip access-list standard FWP3
+ ip access-list standard FWP3
+  deny 162.159.137.0 0.0.0.255
+  deny 172.67.203.0 0.0.0.255
+  deny 13.248.169.0 0.0.0.255
+  deny 172.67.173.0 0.0.0.255
+  deny 104.21.30.0 0.0.0.255
+  permit any
+ int gi 1
+  ip access-group FWP3 in
+  end
+show ip access-list int g1
+
+
+Remove
+
+ int gi 1
+  no ip access-group FWP3 in
+  end
+show ip access-list int g1
+
+________________________________________________
+
+10.3.3.161
+
+10.3.3.162
+
+privalage escalate
+!@cmd
+
+net use \\10.3.3.162\ipc$
+net use x: /delete
+net use x: \\10.3.3.162\c$
+
+dir /ah
+cd Users
+cd Administrator/Desktop
+
+mkdir PINASUKAIN-KA-NI-PAUL
+
+\\10.3.3.162\c$\Users\Administrator\Desktop
+
+________________________________________________
+
+FIREWALL POLICY
+
+Formula:
+|  PROTOCOL       |  HACKER  |  VICTIM  |  PORT         |
+| ---             | ---      | ---      | ---           |
+| TCP/UDP/ICMP/IP |   ANY    |          |  Dest.Port eq |
+
+
+
+conf t
+ no ip access-list extended FWP4
+ ip access-list extended FWP4
+ permit tcp Any host 208.8.8.100 eq 80 log
+ permit tcp Any host 208.8.8.100 eq 443 log
+ permit icmp Any host 208.8.8.100 log
+ permit tcp Any host 208.8.8.100 eq 22 log
+ permit tcp Any host 208.8.8.100 eq 53 log
+ Int gi 1
+  ip access-group FWP4 in
+  end
+  
+ remove 
+ confi t
+  Int gi 1
+  no ip access-group FWP4 in
+  end
+ 
+ ________________________________________________
+ 
+FW5
+telnet - 23
+sccp - 2000
+imap - 143
+pop - 110
+ftp - 20-21
+ntp - 123
+
+conf t
+ no ip access-list extended FWP5
+ ip access-list extended FWP5
+ permit tcp Any host 208.8.8.100 eq 23 log
+ permit tcp Any host 208.8.8.100 eq 2000 log
+ permit tcp Any host 208.8.8.100 eq 143 log
+ permit tcp Any host 208.8.8.100 eq 110 log
+ permit tcp Any host 208.8.8.100 eq 21 log
+ permit udp Any host 208.8.8.100 eq 123 log
+ Int gi 1
+  ip access-group FWP5 in
+  end
+ 
+
+nmap -sU --min-rate 2000 208.8.8.100
+
+remove 
+conf t
+ Int gi 1
+  no ip access-group FWP5 in
+  end
+  
+  
+ NAT
+
+!@BLDG-1
+sudo su
+hostname BLDG-PH
+ifconfig eth0 10.11.11.101 netmask 255.255.255.224 up
+route add default gw 10.11.11.113
+ping 10.11.11.113
+
+!@BLDG-2
+sudo su
+hostname BLDG-PH
+ifconfig eth0 10.11.11.102 netmask 255.255.255.224 up
+route add default gw 10.11.11.113
+ping 10.11.11.113
+
+!@BLDG-3
+
+sudo su
+hostname BLDG-PH
+ifconfig eth0 10.11.11.103 netmask 255.255.255.224 up
+route add default gw 10.11.11.113
+ping 10.11.11.113
+
+1. Define Inside & Outside
+!@UTM-PH
+
+conf t
+	int g1
+		ip nat outside
+	int g3
+		ip nat inside
+	end
+	
+2. MATCH TRAFFIC
+!@UTM-PH
+
+conf t
+	ip access-list extended NAT
+	permit ip 10.11.11.96 0.0.0.31 any
+	end
+
+conf t
+	access-list 1 permit 10.11.11.96 0.0.0.31
+	end
+	
+3. CONFIGURE NAT
+!@UTM-PH
+
+conf t
+	ip nat inside source list NAT int g1 overload
+	end
+show ip nat translation
+
+
+PORT FORWARDING 
+!@UTM-PH
+conf t
+ ip nat inside source static tcp 10.11.11.101 80 208.8.8.69 8080
+ ip nat inside source static tcp 10.11.11.102 443 208.8.8.69 8443
+ ip nat inside source static tcp 10.11.11.103 80 208.8.8.69 80
+ ip nat inside source static tcp 10.11.11.103 443 208.8.8.69 443
+end
+
+BLDG - 1 80 > 2345
+BLDG - 1 22 > 2222
+BLDG - 2 443 > 6969
+BLDG - 2 22 > 2222
+BLDG - 3 22 > 2222
+
+
+conf t
+ ip nat inside source static tcp 10.11.11.101 80 208.8.8.80 2345
+ ip nat inside source static tcp 10.11.11.101 22 208.8.8.80 2222
+ ip nat inside source static tcp 10.11.11.102 443 208.8.8.80 6969
+ ip nat inside source static tcp 10.11.11.102 22 208.8.8.80 2223
+ ip nat inside source static tcp 10.11.11.103 22 208.8.8.80 2224
+end
+
+adduser admin
+	pass
+	pass
+	
+	
+VPN CONFIGURATION
+
+UTM-PH - 192.168.10.11
+UTM-JP - 192.168.10.12
+
+
+VPN - Security Purposes 
+
+!@UTM-PH
+
+conf t
+ ip domain name ccna.com
+ crypto key generate rsa modulus 1024
+ ip ssh version 2
+ line vty 0 14
+	transport input all
+	login local
+	end
+
+Private Key or Encrypted Message - Publickey / shared secret
+
+Ephemeral Public key - 
+
+VPN SETTINGS
+CISCO CSR1000V
+
+Tunnel IP
+Tunnel Subnet Mask
+Source Interface
+Remote Peer IP
+Pre-shared Key
+Description
+
+
+Advance Details
+
+ADD Tunnel Details 
+
+Encryption AES-CBC-256
+INTEGRITY - sha512,sha382,sha256
+Group 14
+
+IPSEC
+ESP Encryption -  AES-256
+ESP Integrity - sha512
